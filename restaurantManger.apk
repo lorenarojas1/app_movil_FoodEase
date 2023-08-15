@@ -1,0 +1,29 @@
+class RestaurantManager {
+    private val restaurants = mutableListOf<Restaurant>()
+    private var currentId = 1
+
+    fun createRestaurant(name: String, cuisine: String) {
+        val restaurant = Restaurant(currentId, name, cuisine)
+        restaurants.add(restaurant)
+        currentId++
+    }
+
+    fun getAllRestaurants(): List<Restaurant> {
+        return restaurants.toList()
+    }
+
+    fun updateRestaurant(id: Int, newName: String, newCuisine: String) {
+        val restaurant = restaurants.find { it.id == id }
+        restaurant?.let {
+            it.name = newName
+            it.cuisine = newCuisine
+        }
+    }
+
+    fun deleteRestaurant(id: Int) {
+        val restaurant = restaurants.find { it.id == id }
+        restaurant?.let {
+            restaurants.remove(it)
+        }
+    }
+}

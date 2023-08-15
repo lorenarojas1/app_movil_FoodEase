@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537799070641",
+    "project_id": "lere-67097",
+    "storage_bucket": "lere-67097.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537799070641:android:56aad41e6416cc984d6390",
+        "android_client_info": {
+          "package_name": "uvm.restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537799070641-0mo5r8puo0a3r3bidrsdfmt3n42adgio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAliaiVhAe4l99IUMeT_KaqxNh6kVrnO9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537799070641-0mo5r8puo0a3r3bidrsdfmt3n42adgio.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

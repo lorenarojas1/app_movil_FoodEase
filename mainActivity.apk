@@ -1,0 +1,81 @@
+class MainActivity : AppCompatActivity() {
+    private lateinit var restaurantManager: RestaurantManager
+    private lateinit var firestore: FirebaseFirestore
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        restaurantManager = RestaurantManager()
+        firestore = FirebaseFirestore.getInstance()
+
+        // Ejemplos de uso:
+        restaurantManager.createRestaurant("Restaurante A", "Cocina A")
+        restaurantManager.createRestaurant("Restaurante B", "Cocina B")
+        val allRestaurants = restaurantManager.getAllRestaurants()
+        val firstRestaurant = allRestaurants.firstOrNull()
+        firstRestaurant?.let {
+            restaurantManager.updateRestaurant(it.id, "Nuevo Nombre", "Nueva Cocina")
+            restaurantManager.deleteRestaurant(it.id)
+        }
+    }
+private fun createRestaurant(name: String, cuisine: String) {
+        val restaurant = hashMapOf(
+            "name" to name,
+            "cuisine" to cuisine
+        )
+
+        firestore.collection("restaurants")
+            .add(restaurant)
+            .addOnSuccessListener { documentReference ->
+                Log.d("Firestore", "Restaurant added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error adding restaurant", e)
+            }
+    }
+
+    private fun updateRestaurant(id: String, newName: String, newCuisine: String) {
+        val restaurantRef = firestore.collection("restaurants").document(id)
+
+        val updates = hashMapOf(
+            "name" to newName,
+            "cuisine" to newCuisine
+        )
+
+        restaurantRef.update(updates)
+            .addOnSuccessListener {
+                Log.d("Firestore", "Restaurant updated: $id")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error updating restaurant", e)
+            }
+    }
+
+    private fun deleteRestaurant(id: String) {
+        firestore.collection("restaurants").document(id)
+            .delete()
+            .addOnSuccessListener {
+                Log.d("Firestore", "Restaurant deleted: $id")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error deleting restaurant", e)
+            }
+    }
+
+    private fun getAllRestaurants() {
+        firestore.collection("restaurants")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val name = document.getString("name")
+                    val cuisine = document.getString("cuisine")
+                    Log.d("Firestore", "Restaurant: $name, Cuisine: $cuisine")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error getting documents.", e)
+            }
+    }
+
+}

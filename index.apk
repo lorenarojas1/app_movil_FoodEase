@@ -1,0 +1,9 @@
+data class Restaurant(val id: Int, var name: String, var cuisine: String)
+
+class MyApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        FirebaseApp.initializeApp(this)
+    }
+}
+

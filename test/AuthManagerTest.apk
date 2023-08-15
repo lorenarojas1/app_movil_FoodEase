@@ -1,0 +1,33 @@
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class AuthManagerTest {
+
+    private lateinit var authManager: AuthManager
+
+    @Before
+    fun setUp() {
+        authManager = AuthManager()
+    }
+
+    @Test
+    fun testSignUpAndSignIn() {
+        val email = "test@example.com"
+        val password = "testPassword"
+
+        // Registrar un nuevo usuario
+        authManager.signUp(email, password)
+
+        // Iniciar sesión con las mismas credenciales
+        authManager.signIn(email, password)
+
+        // Verificar que el correo electrónico del usuario actual coincide
+        val currentUserEmail = authManager.getCurrentUserEmail()
+        assertEquals(email, currentUserEmail)
+    }
+}

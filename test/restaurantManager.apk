@@ -1,0 +1,28 @@
+import org.junit.Before
+import org.junit.Test
+import org.junit.Assert.assertEquals
+
+class RestaurantManagerTest {
+    private lateinit var restaurantManager: RestaurantManager
+
+    @Before
+    fun setUp() {
+        restaurantManager = RestaurantManager()
+    }
+
+    @Test
+    fun testCreateRestaurant() {
+        restaurantManager.createRestaurant("Restaurant A", "Cuisine A")
+        assertEquals(1, restaurantManager.restaurants.size)
+    }
+
+    @Test
+    fun testUpdateRestaurant() {
+        restaurantManager.createRestaurant("Restaurant B", "Cuisine B")
+        restaurantManager.updateRestaurant("Restaurant B", "New Cuisine")
+        
+        val updatedRestaurant = restaurantManager.restaurants.find { it.name == "Restaurant B" }
+        assertEquals("New Cuisine", updatedRestaurant?.cuisine)
+    }
+}
+

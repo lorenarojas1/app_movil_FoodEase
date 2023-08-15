@@ -1,4 +1,6 @@
 implementation 'com.google.firebase:firebase-firestore-ktx:23.0.3'
+androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
 
 plugins {
     id 'com.android.application'
@@ -15,4 +17,16 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:23.0.3' // Agrega la dependencia de Firestore
     // ... (otras dependencias)
+}
+
+buildscript {
+    repositories { 
+        google()
+        ...
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.0'
+        //Jacoco Plugin
+        classpath "org.jacoco:org.jacoco.core:0.8.7"
+    }
 }

@@ -1,0 +1,39 @@
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class AuthAndAccessManagerTest {
+
+    private lateinit var authAndAccessManager: AuthAndAccessManager
+
+    @Before
+    fun setUp() {
+        authAndAccessManager = AuthAndAccessManager()
+    }
+
+    @Test
+    fun testSignUpAndSignIn() {
+        val email = "test@example.com"
+        val password = "testPassword"
+
+        // Registrar un nuevo usuario
+        authAndAccessManager.signUp(email, password)
+
+        // Iniciar sesión con las mismas credenciales y verificar la autenticación
+        val isAuthenticated = authAndAccessManager.signIn(email, password)
+        assertTrue(isAuthenticated)
+    }
+
+    @Test
+    fun testAccessResource() {
+        val userId = "user123"
+        val resourceId = "resource456"
+
+        // Verificar que el usuario tiene acceso al recurso
+        assertTrue(authAndAccessManager.hasAccessToResource(userId, resourceId))
+    }
+}

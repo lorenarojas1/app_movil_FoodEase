@@ -1,0 +1,18 @@
+import org.junit.Test
+import javax.crypto.SecretKey
+
+class AESEncryptionManagerTest {
+
+    @Test
+    fun testEncryptionAndDecryption() {
+        val encryptionManager = AESEncryptionManager()
+        val secretKey: SecretKey = encryptionManager.generateSecretKey()
+
+        val originalData = "Datos sensibles".toByteArray()
+
+        val encryptedData = encryptionManager.encrypt(originalData, secretKey)
+        val decryptedData = encryptionManager.decrypt(encryptedData, secretKey)
+
+        assert(originalData.contentEquals(decryptedData))
+    }
+}

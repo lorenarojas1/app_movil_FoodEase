@@ -1,0 +1,40 @@
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+
+class AuthAndAccessManager {
+
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    
+    fun signUp(email: String, password: String) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Usuario registrado exitosamente
+                } else {
+                    // Ocurrió un error durante el registro
+                }
+            }
+    }
+
+    fun signIn(email: String, password: String): Boolean {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Usuario autenticado exitosamente
+                } else {
+                    // Ocurrió un error durante la autenticación
+                }
+            }
+        return firebaseAuth.currentUser != null
+    }
+
+    fun signOut() {
+        firebaseAuth.signOut()
+    }
+
+    fun hasAccessToResource(userId: String, resourceId: String): Boolean {
+        val reference = database.reference.child("user_permissions").child(userId).child(resourceId)
+        return reference.get().isSuccessful
+    }
+}
